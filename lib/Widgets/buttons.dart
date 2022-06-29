@@ -1,11 +1,14 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
 
 class MyButton extends StatefulWidget {
   final VoidCallback onpress;
+  final widths;
   final String btntext;
-  const MyButton({Key? key, required this.onpress, required this.btntext})
+  MyButton({Key? key, this.widths,  required this.onpress, required this.btntext})
       : super(key: key);
 
   @override
@@ -25,7 +28,7 @@ class _MyButtonState extends State<MyButton> {
           ),
         ],
       ),
-      width: double.infinity,
+      width: widget.widths ?? double.infinity,
       height: Get.height * 0.08,
       child: ElevatedButton(
         onPressed: widget.onpress,
@@ -46,3 +49,4 @@ class _MyButtonState extends State<MyButton> {
     );
   }
 }
+ 

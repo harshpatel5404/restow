@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:restow/Screens/Accept/accept_screen.dart';
 import 'package:restow/Screens/ChangePassword/change_password.dart';
 import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:restow/Screens/Home/home_screen.dart';
@@ -16,6 +17,7 @@ class AppRoutes {
     GetPage(name: '/verifyotp', page: () => VerifyOtp()),
     GetPage(name: '/forgotpassword', page: () => ForgotPassword()),
     GetPage(name: '/changepassword', page: () => ChangePassword()),
-    GetPage(name: '/home', page: () => HomeScreen()),
+    GetPage(name: '/home', page: () => const HomeScreen()),
+    GetPage(name: '/accept', page: () => const AcceptScreen()),
   ];
 }

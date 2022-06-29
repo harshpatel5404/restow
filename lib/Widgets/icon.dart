@@ -18,7 +18,7 @@ class AppIcon extends StatelessWidget {
         padding: EdgeInsets.all(Get.width * 0.02),
         child: Icon(
           icon,
-          color: Colors.black54,
+          color: Colors.black,
           size: 30,
         ),
       ),
