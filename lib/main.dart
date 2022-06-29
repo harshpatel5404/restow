@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: background,
         fontFamily: 'Roboto',
       ),
-      home: HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }

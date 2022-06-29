@@ -19,7 +19,7 @@ class AppIcon extends StatelessWidget {
         child: Icon(
           icon,
           color: Colors.black,
-          size: 30,
+          size: 28,
         ),
       ),
     );

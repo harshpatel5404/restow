@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:restow/Screens/StartJob/startjob_screen.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
+import 'package:restow/Widgets/text_widget.dart';
 
 import '../../Constants/colors.dart';
 
@@ -55,7 +57,7 @@ class _AcceptScreenState extends State<AcceptScreen> {
                           child: Container(
                             width: Get.width * 0.8,
                             alignment: Alignment.center,
-                            child: Text(
+                            child: const Text(
                               "Johnson doe send you a tow request with vahicale no DS321521. ",
                               maxLines: 2,
                               textAlign: TextAlign.center,
@@ -127,22 +129,25 @@ class _AcceptScreenState extends State<AcceptScreen> {
                           text1: " Vehicle Wheel : ",
                           text2: "3 Wheeler",
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text(
-                              "Battery Replacement, Clutch Replacement",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 7.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5.0),
+                              child: Text(
+                                "Battery Replacement, Clutch Replacement",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
                           textAlign: TextAlign.justify,
                           style: TextStyle(
@@ -158,7 +163,9 @@ class _AcceptScreenState extends State<AcceptScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             MyButton(
-                                onpress: () {},
+                                onpress: () {
+                                  Get.toNamed("/startjob");
+                                },
                                 widths: Get.width * 0.42,
                                 btntext: "Accept"),
                             Container(
@@ -211,38 +218,6 @@ class _AcceptScreenState extends State<AcceptScreen> {
                 ),
               )
             ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TextWidget extends StatelessWidget {
-  final String text1;
-  final String text2;
-  const TextWidget({Key? key, required this.text1, required this.text2})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
-      child: Row(
-        children: [
-          Text(
-            text1,
-            style: TextStyle(
-              color: Color(0xffA1AA94),
-              fontSize: 13,
-            ),
-          ),
-          Text(
-            text2,
-            style: TextStyle(
-              color: Color(0xff333333),
-              fontSize: 13,
-            ),
           ),
         ],
       ),
