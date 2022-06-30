@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:restow/Widgets/icon.dart';
+
+import '../Notifications/notifications.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -85,9 +88,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    AppIcon(
-                      icon: Icons.notifications,
-                    ),
+                   InkWell(
+                  onTap: () {
+                    Get.to(Notifications());
+                  },
+                  child: Card(
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(width: 0, color: Colors.white)),
+                    elevation: 8,
+                    child: Padding(
+                        padding: EdgeInsets.all(Get.width * 0.03),
+                        child: SvgPicture.asset(
+                          "assets/icons/notification.svg",
+                          height: 20,
+                        )),
+                  ),
+                ),
                   ],
                 ),
               ),

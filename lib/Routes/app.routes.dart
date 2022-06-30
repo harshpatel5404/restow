@@ -33,7 +33,6 @@ class AppRoutes {
     GetPage(name: '/profile', page: () =>  ProfileScreen()),
     // GetPage(name: '/editprofile', page: () =>  EditProfile()),
     // GetPage(name: '/ratingreview', page: () => RatingReviewScreen()),
-    GetPage(name: '/request', page: () => PendingUpcomingRequest()),
 
   ];
 }

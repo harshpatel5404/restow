@@ -41,7 +41,7 @@ class _NotificationsState extends State<Notifications> {
                         Get.back();
                       },
                       child: AppIcon(
-                        icon: Icons.arrow_back_ios,
+                        icon: Icons.arrow_back,
                       )),
                   Text(
                     "Notifications",

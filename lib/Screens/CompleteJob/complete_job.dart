@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:restow/Screens/PendingUpcomingRequest/pending_upcoming_request.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
 import 'package:restow/Widgets/text_widget.dart';
 
 import '../../Constants/colors.dart';
 import '../Accept/accept_screen.dart';
+import '../Notifications/notifications.dart';
 
 class CompleteJobScreen extends StatefulWidget {
   const CompleteJobScreen({Key? key}) : super(key: key);
@@ -35,9 +38,23 @@ class _CompleteJobScreenState extends State<CompleteJobScreen> {
                     AppIcon(
                       icon: Icons.menu,
                     ),
-                    AppIcon(
-                      icon: Icons.notifications,
-                    ),
+                   InkWell(
+                  onTap: () {
+                    Get.to(Notifications());
+                  },
+                  child: Card(
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(width: 0, color: Colors.white)),
+                    elevation: 8,
+                    child: Padding(
+                        padding: EdgeInsets.all(Get.width * 0.03),
+                        child: SvgPicture.asset(
+                          "assets/icons/notification.svg",
+                          height: 20,
+                        )),
+                  ),
+                ),
                   ],
                 ),
               ),
@@ -175,7 +192,7 @@ class _CompleteJobScreenState extends State<CompleteJobScreen> {
                         ),
                         MyButton(
                             onpress: () {
-                              Get.toNamed("/notification");
+                              Get.to(PendingUpcomingRequest(ispending: true));
                             },
                             btntext: "Completed"),
                         const SizedBox(
