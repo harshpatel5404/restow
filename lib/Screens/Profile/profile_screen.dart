@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:restow/Constants/colors.dart';
+import 'package:restow/Screens/Profile/edit_profile.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
@@ -343,7 +344,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: Get.width * 0.08, vertical: Get.width * 0.04),
-                child: MyButton(onpress: () {}, btntext: "Edit Profile"),
+                child: MyButton(
+                    onpress: () {
+                      Get.to(EditProfile(
+                        name: "Johnson Do",
+                        phone: "033 2264 1318",
+                        address: "Palmar del Sol, 83250 Hermosillo, S...",
+                        postcode: "35152",
+                        vehicleno: "SD3231",
+                      ));
+                    },
+                    btntext: "Edit Profile"),
               ),
               SizedBox(
                 height: Get.height * 0.03,

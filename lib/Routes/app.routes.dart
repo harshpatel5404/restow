@@ -31,7 +31,6 @@ class AppRoutes {
     GetPage(name: '/completejob', page: () => const CompleteJobScreen()),
     GetPage(name: '/notification', page: () => Notifications()),
     GetPage(name: '/profile', page: () =>  ProfileScreen()),
-    // GetPage(name: '/editprofile', page: () =>  EditProfile()),
     // GetPage(name: '/ratingreview', page: () => RatingReviewScreen()),
 
   ];
