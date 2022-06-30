@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:restow/Screens/Accept/accept_screen.dart';
 import 'package:restow/Screens/ChangePassword/change_password.dart';
 import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:restow/Screens/Home/home_screen.dart';
 import 'package:restow/Screens/Notifications/notifications.dart';
+import 'package:restow/Screens/PendingUpcomingRequest/pending_upcoming_request.dart';
 import 'package:restow/Screens/Profile/edit_profile.dart';
 import 'package:restow/Screens/Profile/profile_screen.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
@@ -29,7 +31,9 @@ class AppRoutes {
     GetPage(name: '/completejob', page: () => const CompleteJobScreen()),
     GetPage(name: '/notification', page: () => Notifications()),
     GetPage(name: '/profile', page: () =>  ProfileScreen()),
-    GetPage(name: '/editprofile', page: () =>  EditProfile()),
-    GetPage(name: '/ratingreview', page: () => RatingReviewScreen()),
+    // GetPage(name: '/editprofile', page: () =>  EditProfile()),
+    // GetPage(name: '/ratingreview', page: () => RatingReviewScreen()),
+    GetPage(name: '/request', page: () => PendingUpcomingRequest()),
+
   ];
 }

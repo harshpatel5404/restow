@@ -18,51 +18,57 @@ class _NotificationsState extends State<Notifications> {
     "Johnson doe send you a tow request with vahicale no DS321521. ",
     "Johnson doe send you a tow request with vahicale no DS321521. ",
     "Johnson doe send you a tow request with vahicale no DS321521. ",
+    "Johnson doe make a payment of \$500.",
+    "Johnson doe send you a tow request with vahicale no DS321521. ",
+    "This job already accept by other driver.",
+    "Johnson doe send you a tow request with vahicale no DS321521. ",
   ];
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Get.width * 0.03, vertical: Get.width * 0.04),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: AppIcon(
-                          icon: Icons.arrow_back,
-                        )),
-                    Text(
-                      "Notifications",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff292929),
-                        fontSize: 23,
-                      ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Get.width * 0.03, vertical: Get.width * 0.04),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: AppIcon(
+                        icon: Icons.arrow_back_ios,
+                      )),
+                  Text(
+                    "Notifications",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff292929),
+                      fontSize: 23,
                     ),
-                    SizedBox(
-                      width: Get.width * 0.04,
+                  ),
+                  SizedBox(
+                    width: Get.width * 0.04,
+                  ),
+                  Text(
+                    "Clear All",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff7BBE1F),
+                      fontSize: 14,
                     ),
-                    Text(
-                      "Clear All",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff7BBE1F),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                ListView.builder(
+                  ),
+                ],
+              ),
+              Container(
+                height: Get.height * 0.8,
+                child: ListView.builder(
                   shrinkWrap: true,
+                  physics: ScrollPhysics(),
                   itemCount: notitext.length,
                   itemBuilder: (BuildContext context, int index) {
                     if (index % 2 != 0) {
@@ -110,8 +116,8 @@ class _NotificationsState extends State<Notifications> {
                     );
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
