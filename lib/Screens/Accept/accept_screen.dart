@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:restow/Screens/StartJob/startjob_screen.dart';
 import 'package:restow/Widgets/buttons.dart';
+import 'package:restow/Widgets/drawer_menu.dart';
 import 'package:restow/Widgets/icon.dart';
 import 'package:restow/Widgets/text_widget.dart';
 
@@ -19,9 +20,13 @@ class AcceptScreen extends StatefulWidget {
 }
 
 class _AcceptScreenState extends State<AcceptScreen> {
+    GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldkey,
+      drawer: MyDrawer(),
       body: Stack(
         children: [
           Image.asset("assets/images/splash.png"),
@@ -34,8 +39,13 @@ class _AcceptScreenState extends State<AcceptScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppIcon(
-                      icon: Icons.menu,
+                   InkWell(
+                      onTap: () {
+                        scaffoldkey.currentState!.openDrawer();
+                      },
+                      child: AppIcon(
+                        icon: Icons.menu,
+                      ),
                     ),
                    InkWell(
                   onTap: () {

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:restow/Screens/PendingUpcomingRequest/pending_upcoming_request.dart';
 import 'package:restow/Widgets/buttons.dart';
+import 'package:restow/Widgets/drawer_menu.dart';
 import 'package:restow/Widgets/icon.dart';
 import 'package:restow/Widgets/text_widget.dart';
 
@@ -20,9 +21,13 @@ class CompleteJobScreen extends StatefulWidget {
 }
 
 class _CompleteJobScreenState extends State<CompleteJobScreen> {
+  GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldkey,
+      drawer: MyDrawer(),
       body: Stack(
         children: [
           Image.asset("assets/images/splash.png"),
@@ -35,26 +40,32 @@ class _CompleteJobScreenState extends State<CompleteJobScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppIcon(
-                      icon: Icons.menu,
+                    InkWell(
+                      onTap: () {
+                        scaffoldkey.currentState!.openDrawer();
+                      },
+                      child: AppIcon(
+                        icon: Icons.menu,
+                      ),
                     ),
-                   InkWell(
-                  onTap: () {
-                    Get.to(Notifications());
-                  },
-                  child: Card(
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(width: 0, color: Colors.white)),
-                    elevation: 8,
-                    child: Padding(
-                        padding: EdgeInsets.all(Get.width * 0.03),
-                        child: SvgPicture.asset(
-                          "assets/icons/notification.svg",
-                          height: 20,
-                        )),
-                  ),
-                ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(Notifications());
+                      },
+                      child: Card(
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide:
+                                BorderSide(width: 0, color: Colors.white)),
+                        elevation: 8,
+                        child: Padding(
+                            padding: EdgeInsets.all(Get.width * 0.03),
+                            child: SvgPicture.asset(
+                              "assets/icons/notification.svg",
+                              height: 20,
+                            )),
+                      ),
+                    ),
                   ],
                 ),
               ),

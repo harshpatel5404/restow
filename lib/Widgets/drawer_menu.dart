@@ -141,7 +141,6 @@ class _MyDrawerState extends State<MyDrawer> {
                               ],
                             ),
                           ),
-
                           index == 0
                               ? ListView.builder(
                                   shrinkWrap: true,
@@ -187,6 +186,12 @@ class _MyDrawerState extends State<MyDrawer> {
                                           setState(() {
                                             onTapsetting = index;
                                           });
+                                          switch (index) {
+                                            case 0:
+                                              Get.toNamed("/profile");
+                                              break;
+                                            default:
+                                          }
                                         },
                                         child: Text(
                                           settingname[index],
@@ -202,61 +207,6 @@ class _MyDrawerState extends State<MyDrawer> {
                                   },
                                 )
                               : SizedBox(),
-
-                          // index == 1
-                          //     ? Column(
-                          //         crossAxisAlignment: CrossAxisAlignment.start,
-                          //         children: [
-                          //           Padding(
-                          //             padding: EdgeInsets.only(
-                          //                 left: Get.width * 0.12,
-                          //                 top: Get.width * 0.07),
-                          //             child: InkWell(
-                          //               onTap: () {},
-                          //               child: Text(
-                          //                 "Profile Info",
-                          //                 textAlign: TextAlign.start,
-                          //                 style: TextStyle(
-                          //                     fontSize: 14,
-                          //                     color: Color(0xff696969)),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //           Padding(
-                          //             padding: EdgeInsets.only(
-                          //                 left: Get.width * 0.12,
-                          //                 top: Get.width * 0.07),
-                          //             child: InkWell(
-                          //               onTap: () {
-                          //                 Get.toNamed("/changepassword");
-                          //               },
-                          //               child: Text(
-                          //                 "Change Password",
-                          //                 textAlign: TextAlign.start,
-                          //                 style: TextStyle(
-                          //                     fontSize: 14,
-                          //                     color: Color(0xff696969)),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //           Padding(
-                          //             padding: EdgeInsets.only(
-                          //                 left: Get.width * 0.12,
-                          //                 top: Get.width * 0.07),
-                          //             child: InkWell(
-                          //               onTap: () {},
-                          //               child: Text(
-                          //                 "Payment Info",
-                          //                 textAlign: TextAlign.start,
-                          //                 style: TextStyle(
-                          //                     fontSize: 14,
-                          //                     color: Color(0xff696969)),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         ],
-                          //       )
-                          //     : SizedBox(),
                         ],
                       ),
                     );

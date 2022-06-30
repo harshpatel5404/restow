@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:restow/Widgets/icon.dart';
 
+import '../../Widgets/drawer_menu.dart';
 import '../Notifications/notifications.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,10 +16,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+    GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+
   bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldkey,
+      drawer: MyDrawer(),
       body: Stack(
         children: [
           Center(
@@ -37,8 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppIcon(
-                      icon: Icons.menu,
+                   InkWell(
+                      onTap: () {
+                        scaffoldkey.currentState!.openDrawer();
+                      },
+                      child: AppIcon(
+                        icon: Icons.menu,
+                      ),
                     ),
                     Card(
                       shape: OutlineInputBorder(

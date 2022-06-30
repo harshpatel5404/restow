@@ -8,6 +8,7 @@ import 'package:restow/Widgets/icon.dart';
 import 'package:restow/Widgets/text_widget.dart';
 
 import '../../Constants/colors.dart';
+import '../../Widgets/drawer_menu.dart';
 import '../Accept/accept_screen.dart';
 import '../Notifications/notifications.dart';
 
@@ -19,9 +20,13 @@ class StartJobScreen extends StatefulWidget {
 }
 
 class _StartJobScreenState extends State<StartJobScreen> {
+  GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: scaffoldkey,
+      drawer: MyDrawer(),
       body: Stack(
         children: [
           Image.asset("assets/images/splash.png"),
@@ -34,26 +39,32 @@ class _StartJobScreenState extends State<StartJobScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppIcon(
-                      icon: Icons.menu,
-                    ),
                   InkWell(
-                  onTap: () {
-                    Get.to(Notifications());
-                  },
-                  child: Card(
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(width: 0, color: Colors.white)),
-                    elevation: 8,
-                    child: Padding(
-                        padding: EdgeInsets.all(Get.width * 0.03),
-                        child: SvgPicture.asset(
-                          "assets/icons/notification.svg",
-                          height: 20,
-                        )),
-                  ),
-                ),
+                      onTap: () {
+                        scaffoldkey.currentState!.openDrawer();
+                      },
+                      child: AppIcon(
+                        icon: Icons.menu,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(Notifications());
+                      },
+                      child: Card(
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide:
+                                BorderSide(width: 0, color: Colors.white)),
+                        elevation: 8,
+                        child: Padding(
+                            padding: EdgeInsets.all(Get.width * 0.03),
+                            child: SvgPicture.asset(
+                              "assets/icons/notification.svg",
+                              height: 20,
+                            )),
+                      ),
+                    ),
                   ],
                 ),
               ),
