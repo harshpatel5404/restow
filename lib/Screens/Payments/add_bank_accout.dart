@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:restow/Widgets/buttons.dart';
@@ -51,7 +49,7 @@ class _AddBankAccountState extends State<AddBankAccount> {
                     fontWeight: FontWeight.w500,
                     fontSize: 23,
                   ),
-                ),add
+                ),
               ],
             ),
           ),

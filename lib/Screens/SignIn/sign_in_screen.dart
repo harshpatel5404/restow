@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
+import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
 import 'package:restow/Widgets/buttons.dart';
 
@@ -114,7 +115,9 @@ class _SignInPageState extends State<SignInPage> {
               },
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.to(ForgotPassword());
+              },
               child: Text(
                 "Forgot password?",
                 style: TextStyle(

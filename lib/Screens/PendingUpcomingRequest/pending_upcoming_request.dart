@@ -1,53 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
-import 'package:restow/Screens/Notifications/notifications.dart';
-import 'package:restow/Widgets/icon.dart';
-
-import '../../Widgets/text_widget.dart';
+import 'package:restow/Screens/Payments/payment_history.dart';
+import 'package:restow/Screens/PendingUpcomingRequest/pending_request.dart';
+import 'package:restow/Screens/PendingUpcomingRequest/upcoming_request.dart';
+import '../../Widgets/icon.dart';
+import '../Notifications/notifications.dart';
 
 class PendingUpcomingRequest extends StatefulWidget {
-   bool ispending;
-  PendingUpcomingRequest({Key? key, required this.ispending}) : super(key: key);
+  final int curindex;
+  const PendingUpcomingRequest({Key? key, required this.curindex}) : super(key: key);
 
   @override
-  State<PendingUpcomingRequest> createState() => _PendingUpcomingRequestState();
+  _PendingUpcomingRequestState createState() => _PendingUpcomingRequestState();
 }
 
-class _PendingUpcomingRequestState extends State<PendingUpcomingRequest> {
-  bool ispendingreq = true;
-
+class _PendingUpcomingRequestState extends State<PendingUpcomingRequest>
+    with SingleTickerProviderStateMixin {
+  late int _selectedIndex;
+  late PageController _pageController;
   @override
   void initState() {
     super.initState();
-    ispendingreq = widget.ispending;
+    _pageController = PageController(initialPage: widget.curindex);
+    _selectedIndex = widget.curindex;
+
+    
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(
-            left: 10,
-            right: 10,
-            top: Get.height * 0.06,
-            bottom: Get.height * 0.01),
-        child: Column(
-          children: [
-            Row(
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize:
+              Size.fromHeight(Get.height * 0.15), // here the desired height
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: Get.width * 0.03, vertical: Get.width * 0.02),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
-                  onTap: () {
-                    Get.to(Notifications());
-                  },
-                  child: AppIcon(
-                    icon: Icons.arrow_back,
-                  ),
-                ),
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: const AppIcon(
+                      icon: Icons.arrow_back,
+                    )),
                 InkWell(
                   onTap: () {
                     Get.to(Notifications());
@@ -55,7 +62,8 @@ class _PendingUpcomingRequestState extends State<PendingUpcomingRequest> {
                   child: Card(
                     shape: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(width: 0, color: Colors.white)),
+                        borderSide:
+                            const BorderSide(width: 0, color: Colors.white)),
                     elevation: 8,
                     child: Padding(
                         padding: EdgeInsets.all(Get.width * 0.03),
@@ -67,114 +75,92 @@ class _PendingUpcomingRequestState extends State<PendingUpcomingRequest> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: Get.width * 0.45,
-                    height: Get.height * 0.08,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        ispendingreq = !ispendingreq;
-                        setState(() {});
-                      },
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: !ispendingreq
-                            ? MaterialStateProperty.all<Color>(
-                                Color(0xffF4F4F4))
-                            : MaterialStateProperty.all<Color>(kPrimaryColor),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
+          ),
+        ),
+        body: Column(
+          children: <Widget>[
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  width: Get.width * 0.45,
+                  height: Get.height * 0.08,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _pageController.animateToPage(0,
+                          duration: const Duration(milliseconds: 100),
+                          curve: Curves.ease);
+                    },
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor: _selectedIndex == 1
+                          ? MaterialStateProperty.all<Color>(
+                              const Color(0xffF4F4F4))
+                          : MaterialStateProperty.all<Color>(kPrimaryColor),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
                         ),
                       ),
-                      child: Text(
-                        "Pending Request",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: !ispendingreq
-                                ? Color(0xff858585)
-                                : Colors.white),
-                      ),
+                    ),
+                    child: Text(
+                      "Pending Request",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: _selectedIndex == 1
+                              ? const Color(0xff858585)
+                              : Colors.white),
                     ),
                   ),
-                  Container(
-                    width: Get.width * 0.45,
-                    height: Get.height * 0.08,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        ispendingreq = !ispendingreq;
-                        setState(() {});
-                      },
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: ispendingreq
-                            ? MaterialStateProperty.all<Color>(
-                                Color(0xffF4F4F4))
-                            : MaterialStateProperty.all<Color>(kPrimaryColor),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
+                ),
+                Container(
+                  width: Get.width * 0.45,
+                  height: Get.height * 0.08,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _pageController.animateToPage(1,
+                          duration: const Duration(milliseconds: 100),
+                          curve: Curves.ease);
+                    },
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor: _selectedIndex == 0
+                          ? MaterialStateProperty.all<Color>(
+                              const Color(0xffF4F4F4))
+                          : MaterialStateProperty.all<Color>(kPrimaryColor),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
                         ),
                       ),
-                      child: Text(
-                        "Upcoming Request",
-                        style: TextStyle(
-                            fontSize: 13.5,
-                            color: ispendingreq
-                                ? Color(0xff858585)
-                                : Colors.white),
-                      ),
+                    ),
+                    child: Text(
+                      "Upcoming Request",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: _selectedIndex == 0
+                              ? const Color(0xff858585)
+                              : Colors.white),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Container(
-              height: Get.height * 0.72,
-              child: ListView.builder(
-                itemCount: 10,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            " Jonson Doe",
-                            style: TextStyle(
-                                color: Color(0xff333333),
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            " 23-05-2022  |  10:00 AM",
-                            style: TextStyle(
-                              color: Color(0xff868686),
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
-                      ),
-                      TextWidget(text1: " Contact No : ", text2: "632145121"),
-                      TextWidget(
-                          text1: " Vehicle Number : ", text2: "SDI31212"),
-                      TextWidget(
-                          text1: " Vehicle Wheel : ", text2: "4 Wheeler"),
-                      Divider()
-                    ],
-                  );
+            Expanded(
+              flex: 40,
+              child: PageView(
+                onPageChanged: (index) {
+                  print(index);
+                  _selectedIndex = index;
+                  setState(() {});
                 },
+                controller: _pageController,
+                children: [
+                  PendingRequest(),
+                  UpcomingRequest(),
+                ],
               ),
             ),
           ],

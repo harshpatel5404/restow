@@ -173,7 +173,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               child: MyButton(
                 btntext: "Submit",
                 onpress: () {
-                  Get.toNamed("/changepassword");
+                  Get.back();
                 },
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:restow/Constants/colors.dart';
+import 'package:restow/Screens/Home/home_screen.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
@@ -134,7 +135,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
               child: MyButton(
                 btntext: "Submit",
                 onpress: () {
-                  Get.toNamed("/forgotpassword");
+                  Get.off(HomeScreen());
                 },
               ),
             ),
@@ -150,7 +151,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(SignUpPage());
+                    // Get.to(SignUpPage());
                   },
                   child: Text(
                     "Resend",

@@ -3,8 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Screens/Payments/payment_history.dart';
-import 'package:restow/Widgets/buttons.dart';
-
 import '../../Widgets/icon.dart';
 import '../Notifications/notifications.dart';
 import 'bank_account.dart';
@@ -27,7 +25,6 @@ class _PaymentScreenState extends State<PaymentScreen>
   @override
   void dispose() {
     super.dispose();
-
     _pageController.dispose();
   }
 

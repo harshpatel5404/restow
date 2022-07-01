@@ -8,7 +8,9 @@ import 'package:restow/Screens/ChangePassword/change_password.dart';
 import 'package:restow/Screens/ContactUs/contact_us.dart';
 import 'package:restow/Screens/Notifications/notifications.dart';
 import 'package:restow/Screens/Payments/payments.dart';
+import 'package:restow/Screens/PendingUpcomingRequest/pending_upcoming_request.dart';
 import 'package:restow/Screens/Rating%20Review/rating_review.dart';
+import 'package:restow/Screens/SignIn/sign_in_screen.dart';
 
 import '../Screens/AboutUs/about_us.dart';
 
@@ -30,7 +32,7 @@ class _MyDrawerState extends State<MyDrawer> {
     {"name": "Notifications", "icon": "notification"},
     {"name": "Rate & Review", "icon": "star"},
     {"name": "Terms & Conditions", "icon": "info"},
-    {"name": "Privacy Policy", "icon": "terms"},
+    {"name": "About Us", "icon": "terms"},
     {"name": "Contact Us", "icon": "contact"},
     {"name": "Logout", "icon": "logout"},
   ];
@@ -163,6 +165,21 @@ class _MyDrawerState extends State<MyDrawer> {
                                           setState(() {
                                             onTaptowrequest = index;
                                           });
+                                          switch (index) {
+                                            case 0:
+                                              break;
+                                            case 1:
+                                              Get.to(PendingUpcomingRequest(
+                                                curindex: 0,
+                                              ));
+                                              break;
+                                            case 2:
+                                              Get.to(PendingUpcomingRequest(
+                                                curindex: 1,
+                                              ));
+                                              break;
+                                            default:
+                                          }
                                         },
                                         child: Text(
                                           towname[index],
@@ -242,6 +259,9 @@ class _MyDrawerState extends State<MyDrawer> {
                           break;
                         case 6:
                           Get.to(ContactUs());
+                          break;
+                        case 7:
+                          Get.offAll(SignInPage());
                           break;
 
                         default:

@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:restow/Screens/Home/home_screen.dart';
 import 'package:restow/Screens/PendingUpcomingRequest/pending_upcoming_request.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/drawer_menu.dart';
@@ -203,7 +204,7 @@ class _CompleteJobScreenState extends State<CompleteJobScreen> {
                         ),
                         MyButton(
                             onpress: () {
-                              Get.to(PendingUpcomingRequest(ispending: true));
+                              Get.off(HomeScreen());
                             },
                             btntext: "Completed"),
                         const SizedBox(
