@@ -4,6 +4,13 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:restow/Screens/ChangePassword/change_password.dart';
+import 'package:restow/Screens/ContactUs/contact_us.dart';
+import 'package:restow/Screens/Notifications/notifications.dart';
+import 'package:restow/Screens/Payments/payments.dart';
+import 'package:restow/Screens/Rating%20Review/rating_review.dart';
+
+import '../Screens/AboutUs/about_us.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -190,6 +197,12 @@ class _MyDrawerState extends State<MyDrawer> {
                                             case 0:
                                               Get.toNamed("/profile");
                                               break;
+                                            case 1:
+                                              Get.to(ChangePassword());
+                                              break;
+                                            case 2:
+                                              Get.to(PaymentScreen());
+                                              break;
                                             default:
                                           }
                                         },
@@ -216,6 +229,23 @@ class _MyDrawerState extends State<MyDrawer> {
                       setState(() {
                         onTapIndex = index;
                       });
+
+                      switch (index) {
+                        case 2:
+                          Get.to(Notifications());
+                          break;
+                        case 3:
+                          Get.to(RatingReviewScreen());
+                          break;
+                        case 5:
+                          Get.to(AboutUs());
+                          break;
+                        case 6:
+                          Get.to(ContactUs());
+                          break;
+
+                        default:
+                      }
                     },
                     child: ListTile(
                       contentPadding: EdgeInsets.symmetric(
@@ -244,7 +274,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               ),
                               Text(
                                 "${drawerdata[index]['name']}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14, color: Color(0xff696969)),
                               ),
                             ],

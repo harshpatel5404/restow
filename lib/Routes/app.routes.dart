@@ -31,7 +31,7 @@ class AppRoutes {
     GetPage(name: '/completejob', page: () => const CompleteJobScreen()),
     GetPage(name: '/notification', page: () => Notifications()),
     GetPage(name: '/profile', page: () =>  ProfileScreen()),
-    // GetPage(name: '/ratingreview', page: () => RatingReviewScreen()),
+    GetPage(name: '/ratingreview', page: () => RatingReviewScreen()),
 
   ];
 }
