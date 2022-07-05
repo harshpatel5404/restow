@@ -10,7 +10,8 @@ import '../Notifications/notifications.dart';
 
 class PendingUpcomingRequest extends StatefulWidget {
   final int curindex;
-  const PendingUpcomingRequest({Key? key, required this.curindex}) : super(key: key);
+  const PendingUpcomingRequest({Key? key, required this.curindex})
+      : super(key: key);
 
   @override
   _PendingUpcomingRequestState createState() => _PendingUpcomingRequestState();
@@ -25,8 +26,6 @@ class _PendingUpcomingRequestState extends State<PendingUpcomingRequest>
     super.initState();
     _pageController = PageController(initialPage: widget.curindex);
     _selectedIndex = widget.curindex;
-
-    
   }
 
   @override
@@ -107,7 +106,7 @@ class _PendingUpcomingRequestState extends State<PendingUpcomingRequest>
                     child: Text(
                       "Pending Request",
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 13.5,
                           color: _selectedIndex == 1
                               ? const Color(0xff858585)
                               : Colors.white),
@@ -139,7 +138,7 @@ class _PendingUpcomingRequestState extends State<PendingUpcomingRequest>
                     child: Text(
                       "Upcoming Request",
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 13.5,
                           color: _selectedIndex == 0
                               ? const Color(0xff858585)
                               : Colors.white),
