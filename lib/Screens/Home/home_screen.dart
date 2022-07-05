@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:restow/Screens/Accept/accept_screen.dart';
 import 'package:restow/Widgets/icon.dart';
 
 import '../../Widgets/drawer_menu.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-    GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
 
   bool isSwitched = false;
   @override
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: InkWell(
                 onTap: () {
-                  Get.toNamed("/accept");
+                  Get.to(AcceptScreen());
                 },
                 child: Image.asset("assets/images/splash.png")),
           ),
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                   InkWell(
+                    InkWell(
                       onTap: () {
                         scaffoldkey.currentState!.openDrawer();
                       },
@@ -98,23 +99,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                   InkWell(
-                  onTap: () {
-                    Get.to(Notifications());
-                  },
-                  child: Card(
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(width: 0, color: Colors.white)),
-                    elevation: 8,
-                    child: Padding(
-                        padding: EdgeInsets.all(Get.width * 0.03),
-                        child: SvgPicture.asset(
-                          "assets/icons/notification.svg",
-                          height: 20,
-                        )),
-                  ),
-                ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(Notifications());
+                      },
+                      child: Card(
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide:
+                                BorderSide(width: 0, color: Colors.white)),
+                        elevation: 8,
+                        child: Padding(
+                            padding: EdgeInsets.all(Get.width * 0.03),
+                            child: SvgPicture.asset(
+                              "assets/icons/notification.svg",
+                              height: 20,
+                            )),
+                      ),
+                    ),
                   ],
                 ),
               ),

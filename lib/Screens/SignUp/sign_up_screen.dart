@@ -234,7 +234,7 @@ class _SignUpPageState extends State<SignUpPage> {
               MyButton(
                 btntext: "Submit",
                 onpress: () {
-                  Get.toNamed("verifyotp");
+                  Get.to(VerifyOtp());
                 },
               ),
               SizedBox(height: Get.height * 0.04),

@@ -71,7 +71,7 @@ class _CompleteJobScreenState extends State<CompleteJobScreen> {
                 ),
               ),
               Container(
-                height: Get.height * 0.7,
+                // height: Get.height * 0.7,
                 width: Get.width,
                 decoration: BoxDecoration(
                   color: Colors.white,

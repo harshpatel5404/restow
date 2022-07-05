@@ -5,9 +5,7 @@ import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:restow/Screens/Home/home_screen.dart';
 import 'package:restow/Screens/PendingUpcomingRequest/pending_upcoming_request.dart';
 import 'package:restow/Screens/VerifyOtp/verify_otp.dart';
-
 import 'Constants/colors.dart';
-import 'Routes/app.routes.dart';
 import 'Screens/Splash/splash_screen.dart';
 
 void main() {
@@ -20,8 +18,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Driver Restow',
-      initialRoute: '/',
-      getPages: AppRoutes.routes,
       theme: ThemeData(
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: background,

@@ -9,6 +9,7 @@ import 'package:restow/Screens/ContactUs/contact_us.dart';
 import 'package:restow/Screens/Notifications/notifications.dart';
 import 'package:restow/Screens/Payments/payments.dart';
 import 'package:restow/Screens/PendingUpcomingRequest/pending_upcoming_request.dart';
+import 'package:restow/Screens/Profile/profile_screen.dart';
 import 'package:restow/Screens/Rating%20Review/rating_review.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
 
@@ -212,7 +213,8 @@ class _MyDrawerState extends State<MyDrawer> {
                                           });
                                           switch (index) {
                                             case 0:
-                                              Get.toNamed("/profile");
+                                              Get.to(ProfileScreen());
+
                                               break;
                                             case 1:
                                               Get.to(ChangePassword());

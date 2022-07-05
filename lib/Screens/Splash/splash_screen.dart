@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Color(0xfff8f8f8),
       body: InkWell(
         onTap: () {
-          Get.toNamed("/signin");
+          Get.to(SignInPage());
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

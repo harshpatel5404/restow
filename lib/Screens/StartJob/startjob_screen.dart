@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:restow/Screens/CompleteJob/complete_job.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
 import 'package:restow/Widgets/text_widget.dart';
@@ -25,7 +26,7 @@ class _StartJobScreenState extends State<StartJobScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldkey,
+      key: scaffoldkey,
       drawer: MyDrawer(),
       body: Stack(
         children: [
@@ -39,7 +40,7 @@ class _StartJobScreenState extends State<StartJobScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  InkWell(
+                    InkWell(
                       onTap: () {
                         scaffoldkey.currentState!.openDrawer();
                       },
@@ -69,7 +70,6 @@ class _StartJobScreenState extends State<StartJobScreen> {
                 ),
               ),
               Container(
-                height: Get.height * 0.7,
                 width: Get.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -202,7 +202,7 @@ class _StartJobScreenState extends State<StartJobScreen> {
                         ),
                         MyButton(
                             onpress: () {
-                              Get.toNamed("/completejob");
+                              Get.to(CompleteJobScreen());
                             },
                             btntext: "Start Service"),
                         const SizedBox(
