@@ -29,10 +29,17 @@ class _SplashScreenState extends State<SplashScreen> {
               width: Get.width * 0.6,
               child: Image.asset("assets/images/restow.png"),
             ),
-            Container(
-              width: Get.width,
-              child: Image.asset("assets/images/splash.png"),
-            ),
+            Column(
+              children: [
+                Container(
+                  width: Get.width,
+                  child: Image.asset("assets/images/splash.png"),
+                ),
+                SizedBox(
+                  height: Get.height * 0.06,
+                ),
+              ],
+            )
           ],
         ),
       ),

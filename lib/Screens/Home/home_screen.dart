@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:restow/Screens/Accept/accept_screen.dart';
 import 'package:restow/Widgets/icon.dart';
 
@@ -27,12 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: MyDrawer(),
       body: Stack(
         children: [
-          Center(
-            child: InkWell(
-                onTap: () {
-                  Get.to(AcceptScreen());
-                },
-                child: Image.asset("assets/images/splash.png")),
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: LatLng(62.750411, 26.140096),
+              
+              zoom: 4,
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

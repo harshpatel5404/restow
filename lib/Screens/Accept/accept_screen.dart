@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:restow/Screens/StartJob/startjob_screen.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/drawer_menu.dart';
@@ -29,7 +30,12 @@ class _AcceptScreenState extends State<AcceptScreen> {
       drawer: MyDrawer(),
       body: Stack(
         children: [
-          Image.asset("assets/images/splash.png"),
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: LatLng(62.750411, 26.140096),
+              zoom: 3,
+            ),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

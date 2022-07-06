@@ -64,8 +64,8 @@ class _NotificationsState extends State<Notifications> {
                   ),
                 ],
               ),
-              Container(
-                height: Get.height * 0.8,
+              Expanded(
+                // height: Get.height * 0.8,
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),

@@ -36,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
                 fontSize: 22,
               ),
             ),
-            SizedBox(height: Get.height * 0.03),
+            SizedBox(height: Get.height * 0.04),
             Form(
               key: formkey,
               child: Column(
@@ -114,15 +114,18 @@ class _SignInPageState extends State<SignInPage> {
                 Get.to(SignUpPage());
               },
             ),
-            InkWell(
-              onTap: () {
-                Get.to(ForgotPassword());
-              },
-              child: Text(
-                "Forgot password?",
-                style: TextStyle(
-                  color: Color(0xff959595),
-                  fontSize: 14,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: InkWell(
+                onTap: () {
+                  Get.to(ForgotPassword());
+                },
+                child: Text(
+                  "Forgot password?",
+                  style: TextStyle(
+                    color: Color(0xff959595),
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
