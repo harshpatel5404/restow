@@ -5,11 +5,13 @@ import 'package:otp_text_field/style.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Screens/Home/home_screen.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
+import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
+import 'package:restow/Widgets/snackbar.dart';
 
 class VerifyOtp extends StatefulWidget {
-  VerifyOtp({Key? key}) : super(key: key);
+  const VerifyOtp({Key? key}) : super(key: key);
 
   @override
   State<VerifyOtp> createState() => _VerifyOtpState();
@@ -83,7 +85,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
             ),
             SizedBox(height: Get.height * 0.03),
             Text(
-              "Code has been sent to your mail/mobile",
+              "Code has been sent to your email",
               style: TextStyle(
                 color: Color(0xff959595),
                 fontSize: 14,
@@ -135,7 +137,12 @@ class _VerifyOtpState extends State<VerifyOtp> {
               child: MyButton(
                 btntext: "Submit",
                 onpress: () {
-                  Get.off(HomeScreen());
+                  if (otp.length != 4) {
+                    showCustomSnackBar("Fill the OTP fields");
+                  } else {
+                    int otptext = int.parse(otp);
+                    verifyOtp(otp);
+                  }
                 },
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
+import 'package:restow/Screens/SignUp/sign_up_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,12 +14,12 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       backgroundColor: Color(0xfff8f8f8),
       body: InkWell(
         onTap: () {
-          Get.to(SignInPage());
+          Get.to(SignUpPage());
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

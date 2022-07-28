@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:restow/Screens/Accept/accept_screen.dart';
 import 'package:restow/Screens/ChangePassword/change_password.dart';
 import 'package:restow/Screens/ContactUs/contact_us.dart';
 import 'package:restow/Screens/Notifications/notifications.dart';
@@ -12,6 +13,7 @@ import 'package:restow/Screens/PendingUpcomingRequest/pending_upcoming_request.d
 import 'package:restow/Screens/Profile/profile_screen.dart';
 import 'package:restow/Screens/Rating%20Review/rating_review.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
+import 'package:restow/Screens/StartJob/startjob_screen.dart';
 
 import '../Screens/AboutUs/about_us.dart';
 
@@ -56,7 +58,9 @@ class _MyDrawerState extends State<MyDrawer> {
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(ProfileScreen());
+                      },
                       child: CircleAvatar(
                         radius: Get.width * 0.1,
                         backgroundImage: AssetImage("assets/images/person.png"),
@@ -168,6 +172,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                           });
                                           switch (index) {
                                             case 0:
+                                              Get.to(AcceptScreen());
                                               break;
                                             case 1:
                                               Get.to(PendingUpcomingRequest(

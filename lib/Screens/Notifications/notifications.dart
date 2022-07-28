@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
+import 'package:restow/Screens/Accept/accept_screen.dart';
 import 'package:restow/Widgets/icon.dart';
 
 class Notifications extends StatefulWidget {
@@ -72,13 +73,45 @@ class _NotificationsState extends State<Notifications> {
                   itemCount: notitext.length,
                   itemBuilder: (BuildContext context, int index) {
                     if (index % 2 != 0) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffF3F3F3),
+                      return InkWell(
+                        onTap: () {
+                          Get.to(AcceptScreen());
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xffF3F3F3),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.03,
+                                  vertical: Get.width * 0.05),
+                              child: Text(
+                                notitext[index],
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                              ),
+                            ),
                           ),
+                        ),
+                      );
+                    }
+
+                    return InkWell(
+                      onTap: () {
+                        Get.to(AcceptScreen());
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: Card(
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(width: 0, color: Colors.white)),
+                          elevation: 5,
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: Get.width * 0.03,
@@ -86,30 +119,8 @@ class _NotificationsState extends State<Notifications> {
                             child: Text(
                               notitext[index],
                               style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color.fromARGB(255, 0, 0, 0)),
+                                  fontSize: 15, color: Color(0xff626262)),
                             ),
-                          ),
-                        ),
-                      );
-                    }
-
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: Card(
-                        shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(width: 0, color: Colors.white)),
-                        elevation: 5,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.03,
-                              vertical: Get.width * 0.05),
-                          child: Text(
-                            notitext[index],
-                            style: TextStyle(
-                                fontSize: 15, color: Color(0xff626262)),
                           ),
                         ),
                       ),

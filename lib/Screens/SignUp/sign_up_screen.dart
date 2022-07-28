@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
 import 'package:restow/Screens/VerifyOtp/verify_otp.dart';
+import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/buttons.dart';
+import 'package:restow/Widgets/snackbar.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key? key}) : super(key: key);
@@ -16,9 +18,9 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController(text: "");
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController phoneController = TextEditingController(text: "");
+  TextEditingController passwordController = TextEditingController(text: "");
   TextEditingController confirmpasswordController =
       TextEditingController(text: "");
-  TextEditingController passwordController = TextEditingController(text: "");
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool isVisible = false;
   bool iscVisible = false;
@@ -49,6 +51,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       cursorColor: textcolor,
                       controller: nameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter name';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Driver Name",
                         hintText: "john",
@@ -73,6 +81,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       cursorColor: textcolor,
                       controller: phoneController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter number';
+                        } else if (value.length != 10) {
+                          return 'Number should be 10 digit';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Phone Number",
                         hintText: "Phone Number",
@@ -97,6 +113,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       cursorColor: textcolor,
                       controller: emailController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter email';
+                        } else if (!RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value)) {
+                          return 'Email is not valid';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Email",
                         hintText: "johnsondoe@gmail.com",
@@ -122,6 +148,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       cursorColor: textcolor,
                       obscureText: !isVisible,
                       controller: passwordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter password';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Password",
                         hintText: "Password",
@@ -162,6 +194,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       cursorColor: textcolor,
                       obscureText: !iscVisible,
                       controller: confirmpasswordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter confirm password';
+                        } else if (value.toString() !=
+                            passwordController.text) {
+                          return 'Password do not match';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Confirm Password",
                         hintText: "Confirm Password",
@@ -234,7 +275,21 @@ class _SignUpPageState extends State<SignUpPage> {
               MyButton(
                 btntext: "Submit",
                 onpress: () {
-                  Get.to(VerifyOtp());
+                  if (formkey.currentState!.validate()) {
+                    print("valid");
+                    if (!isChecked) {
+                      showCustomSnackBar(
+                          "Please Agree to Terms and Conditions");
+                    } else {
+                      var name = nameController.text;
+                      var email = emailController.text;
+                      var password = passwordController.text;
+                      var phone = phoneController.text;
+                      signup(name, email, phone, password);
+                    }
+                  }
+
+                  // Get.to(VerifyOtp());
                 },
               ),
               SizedBox(height: Get.height * 0.04),
