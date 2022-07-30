@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
+import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/buttons.dart';
 
 class SignInPage extends StatefulWidget {
@@ -111,7 +112,8 @@ class _SignInPageState extends State<SignInPage> {
             MyButton(
               btntext: "Submit",
               onpress: () {
-                Get.to(SignUpPage());
+                login(emailController.text.trim(),
+                    passwordController.text.trim());
               },
             ),
             Padding(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
@@ -80,6 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: Get.height * 0.04),
                     TextFormField(
                       cursorColor: textcolor,
+                      keyboardType: TextInputType.number,
                       controller: phoneController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {

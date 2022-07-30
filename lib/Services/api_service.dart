@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:restow/Screens/Home/home_screen.dart';
+import 'package:restow/Screens/SignIn/sign_in_screen.dart';
 import 'package:restow/Screens/VerifyOtp/verify_otp.dart';
 import 'package:restow/Widgets/snackbar.dart';
 
@@ -31,19 +33,19 @@ Future signup(name, email, phone, password) async {
     if (response.statusCode == 200) {
       var responsedata = jsonDecode(response.body);
       print(responsedata);
-      setuserid(responsedata["data"]["userId"].toString());
-      setUserinfo(email: email, name: name, phone: phone);
       if (responsedata["msg"] == "Email Already Exist") {
         showCustomSnackBar(responsedata["msg"]);
       } else {
+        await setuserid(responsedata["data"]["userId"].toString());
+        await setUserinfo(email: email, name: name, phone: phone);
         showCustomSnackBar(responsedata["msg"], isError: false);
+        Get.to(const VerifyOtp());
       }
-      Get.to(const VerifyOtp());
     }
   } on SocketException {
-    return "No Internet connection";
+    showCustomSnackBar("No Internet connection");
   } on TimeoutException {
-    throw TimeoutException('Connection Time Out!');
+    showCustomSnackBar("Connection Time Out!");
   } catch (e) {
     print(e.toString());
     showCustomSnackBar(e.toString());
@@ -52,31 +54,30 @@ Future signup(name, email, phone, password) async {
 
 Future verifyOtp(otp) async {
   var userid = await getuserid();
-
   print(userid);
   print(otp);
   try {
-    final response = await http.post(Uri.parse(
-            "$baseUrl/user/verifyOtp/$userid/$otp"),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        encoding: Encoding.getByName('utf-8'));
+    final response =
+        await http.post(Uri.parse("$baseUrl/user/verifyOtp/$userid/$otp"),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            encoding: Encoding.getByName('utf-8'));
 
     if (response.statusCode == 200) {
       var responsedata = jsonDecode(response.body);
       print(responsedata);
       showCustomSnackBar(responsedata["msg"], isError: false);
-      Get.to(const VerifyOtp());
+      Get.off(SignInPage());
     } else {
       var responsedata = jsonDecode(response.body);
-      print("400");
+      print("incorrecrt");
       showCustomSnackBar(responsedata["msg"]);
     }
   } on SocketException {
-    return "No Internet connection";
+    showCustomSnackBar("No Internet connection");
   } on TimeoutException {
-    throw TimeoutException('Connection Time Out!');
+    showCustomSnackBar("Connection Time Out!");
   } catch (e) {
     print(e.toString());
     showCustomSnackBar(e.toString());
@@ -85,7 +86,7 @@ Future verifyOtp(otp) async {
 
 Future login(email, password) async {
   try {
-    final response = await http.post(Uri.parse('$baseUrl/login'),
+    final response = await http.post(Uri.parse('$baseUrl/user/login'),
         headers: {
           "Content-Type": "application/json",
           'Accept': 'application/json',
@@ -99,16 +100,26 @@ Future login(email, password) async {
     if (response.statusCode == 200 || response.statusCode == 201) {
       var responsedata = jsonDecode(response.body);
       print(responsedata);
-      // setUserinfo(email: email, name: name, phone: phone);
-
+      var name = responsedata["data"]["user"]["fullName"];
+      var phone = responsedata["data"]["user"]["phone"];
+      var userid = responsedata["data"]["user"]["_id"];
+      await setuserid(userid);
+      await setToken(responsedata['data']['token']);
+      await setUserinfo(email: email, name: name, phone: phone);
       showCustomSnackBar("Login Successfully", isError: false);
-      // Get.to(const HomeScreen());
+
+      Get.offAll(const HomeScreen());
+    } else {
+      var responsedata = jsonDecode(response.body);
+      showCustomSnackBar(responsedata["msg"]);
+      print(responsedata);
     }
   } on SocketException {
-    return "No Internet connection";
+    showCustomSnackBar("No Internet connection");
   } on TimeoutException {
-    throw TimeoutException('Connection Time Out!');
+    showCustomSnackBar("Connection Time Out!");
   } catch (e) {
-    showCustomSnackBar("Invalid Credential!");
+    print(e.toString());
+    showCustomSnackBar(e.toString());
   }
 }
