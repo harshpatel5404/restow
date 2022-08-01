@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
+import 'package:restow/Constants/dimension.dart';
+import 'package:restow/Screens/ForgotPassword/email_screen.dart';
 import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
 import 'package:restow/Services/api_service.dart';
@@ -30,9 +32,9 @@ class _SignInPageState extends State<SignInPage> {
             SizedBox(
               height: Get.height * 0.15,
             ),
-            Text(
+            const Text(
               "Sign in to continue!",
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
               ),
@@ -45,21 +47,31 @@ class _SignInPageState extends State<SignInPage> {
                   TextFormField(
                     cursorColor: textcolor,
                     controller: emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter email';
+                      } else if (!RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                        return 'Email is not valid';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       labelText: "Email",
                       hintText: "johnsondoe@gmail.com",
-                      labelStyle: TextStyle(color: Color(0xff969696)),
+                      labelStyle: const TextStyle(color: Color(0xff969696)),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           width: 1,
                           color: Color(0xff333333),
                         ),
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           width: 1,
-                          color: Color(0xffE4E4E4),
+                          color: const Color(0xffE4E4E4),
                         ),
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -70,19 +82,25 @@ class _SignInPageState extends State<SignInPage> {
                     cursorColor: textcolor,
                     obscureText: !isVisible,
                     controller: passwordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       labelText: "Password",
                       hintText: "Password",
-                      labelStyle: TextStyle(color: Color(0xff969696)),
+                      labelStyle: const TextStyle(color: Color(0xff969696)),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           width: 1,
                           color: Color(0xff333333),
                         ),
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           width: 1,
                           color: Color(0xffE4E4E4),
                         ),
@@ -94,11 +112,11 @@ class _SignInPageState extends State<SignInPage> {
                           setState(() {});
                         },
                         child: isVisible
-                            ? Icon(
+                            ? const Icon(
                                 Icons.visibility_off,
                                 color: Color(0xffC6C6C6),
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.visibility,
                                 color: Color(0xffC6C6C6),
                               ),
@@ -108,21 +126,25 @@ class _SignInPageState extends State<SignInPage> {
                 ],
               ),
             ),
-            SizedBox(),
+            const SizedBox(),
             MyButton(
               btntext: "Submit",
               onpress: () {
-                login(emailController.text.trim(),
-                    passwordController.text.trim());
+                if (formkey.currentState!.validate()) {
+                  print("valid");
+
+                  login(emailController.text.trim(),
+                      passwordController.text.trim());
+                }
               },
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              padding: EdgeInsets.symmetric(vertical: mWidth * 0.06),
               child: InkWell(
                 onTap: () {
-                  Get.to(ForgotPassword());
+                  Get.to(const EmailScreen());
                 },
-                child: Text(
+                child: const Text(
                   "Forgot password?",
                   style: TextStyle(
                     color: Color(0xff959595),
@@ -134,7 +156,7 @@ class _SignInPageState extends State<SignInPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Don’t have an account? ",
                   style: TextStyle(
                     color: Color(0xff515050),
@@ -143,9 +165,9 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(SignUpPage());
+                    Get.to(const SignUpPage());
                   },
-                  child: Text(
+                  child: const Text(
                     "Sign up",
                     style: TextStyle(
                         color: Color(0xff000000),

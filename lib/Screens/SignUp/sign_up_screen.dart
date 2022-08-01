@@ -9,7 +9,7 @@ import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/snackbar.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -30,7 +30,11 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(Get.width * 0.08),
+        padding: EdgeInsets.only(
+          top: Get.width * 0.08,
+          left: Get.width * 0.08,
+          right: Get.width * 0.08,
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -290,8 +294,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       signup(name, email, phone, password);
                     }
                   }
-
-                  // Get.to(VerifyOtp());
                 },
               ),
               SizedBox(height: Get.height * 0.04),

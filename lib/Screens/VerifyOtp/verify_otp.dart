@@ -3,15 +3,17 @@ import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:restow/Constants/colors.dart';
-import 'package:restow/Screens/HomePage/home_screen.dart';
-import 'package:restow/Screens/SignUp/sign_up_screen.dart';
 import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
 import 'package:restow/Widgets/snackbar.dart';
 
 class VerifyOtp extends StatefulWidget {
-  const VerifyOtp({Key? key}) : super(key: key);
+  final bool isForgot;
+  const VerifyOtp({
+    Key? key,
+    required this.isForgot,
+  }) : super(key: key);
 
   @override
   State<VerifyOtp> createState() => _VerifyOtpState();
@@ -141,7 +143,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                     showCustomSnackBar("Fill the OTP fields");
                   } else {
                     int otptext = int.parse(otp);
-                    verifyOtp(otp);
+                    verifyOtp(otp, widget.isForgot);
                   }
                 },
               ),

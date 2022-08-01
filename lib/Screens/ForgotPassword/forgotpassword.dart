@@ -4,6 +4,7 @@ import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
+import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
 
@@ -15,9 +16,9 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  TextEditingController newpasswordController = TextEditingController(text: "");
   TextEditingController confirmnewpasswordController =
       TextEditingController(text: "");
-  TextEditingController newpasswordController = TextEditingController(text: "");
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool isVisible = false;
@@ -87,6 +88,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       cursorColor: textcolor,
                       obscureText: !isVisible,
                       controller: newpasswordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter password';
+                        } else if (value.length < 6) {
+                          return 'password is to short!';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Type New Password",
                         hintText: "Type New Password",
@@ -127,6 +136,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       cursorColor: textcolor,
                       obscureText: !iscVisible,
                       controller: confirmnewpasswordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Re-type password';
+                        } else if (value.toString() !=
+                            newpasswordController.text) {
+                          return 'Password do not match';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Retype New Password",
                         hintText: "Retype New Password",
@@ -173,7 +191,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               child: MyButton(
                 btntext: "Submit",
                 onpress: () {
-                  Get.back();
+                  if (formkey.currentState!.validate()) {
+                    forgotPassword(newpasswordController.text,
+                        confirmnewpasswordController.text);
+                  }
                 },
               ),
             ),
