@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Screens/HomePage/home_screen.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
+import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
 
@@ -91,6 +93,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                         cursorColor: textcolor,
                         obscureText: !isoldVisible,
                         controller: oldpasswordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter old password';
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           labelText: "Type Old Password",
                           hintText: "Type Old Password",
@@ -131,6 +139,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                         cursorColor: textcolor,
                         obscureText: !isVisible,
                         controller: newpasswordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter password';
+                          } else if (value.length < 6) {
+                            return 'password is to short!';
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           labelText: "Type New Password",
                           hintText: "Type New Password",
@@ -171,6 +187,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                         cursorColor: textcolor,
                         obscureText: !iscVisible,
                         controller: confirmnewpasswordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Re-type password';
+                          } else if (value.toString() !=
+                              newpasswordController.text) {
+                            return 'Password do not match';
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           labelText: "Retype New Password",
                           hintText: "Retype New Password",
@@ -217,7 +242,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                 child: MyButton(
                   btntext: "Submit",
                   onpress: () {
-                    Get.to(HomeScreen());
+                     if (formkey.currentState!.validate()) {
+                    EasyLoading.show();
+                    forgotPassword(newpasswordController.text,
+                            confirmnewpasswordController.text)
+                        .whenComplete(() {
+                      EasyLoading.removeAllCallbacks();
+                      EasyLoading.dismiss();
+                    });
+                  }
                   },
                 ),
               ),

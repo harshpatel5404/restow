@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:restow/Constants/dimension.dart';
 import 'package:restow/Screens/ForgotPassword/email_screen.dart';
 import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
+import 'package:restow/Screens/Home/home_screen.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
+import 'package:restow/Screens/VerifyOtp/verify_otp.dart';
 import 'Constants/colors.dart';
 
 void main() async {
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: background,
         fontFamily: 'Roboto',
       ),
-      home: const SignUpPage(),
+      home: HomeScreen(),
       builder: EasyLoading.init(),
     );
   }

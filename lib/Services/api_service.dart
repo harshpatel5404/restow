@@ -57,6 +57,31 @@ Future signup(name, email, phone, password) async {
   }
 }
 
+Future resendOtpCode() async {
+  var userid = await getuserid();
+  try {
+    final response = await http.get(
+      Uri.parse('$baseUrl/user/resendOtp/$userid'),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      var responsedata = jsonDecode(response.body);
+      showCustomSnackBar(responsedata["msg"], isError: false);
+    } else {
+      var responsedata = jsonDecode(response.body);
+      showCustomSnackBar(responsedata['msg']);
+    }
+  } on SocketException {
+    showCustomSnackBar("No Internet connection");
+  } on TimeoutException {
+    showCustomSnackBar("Connection Time Out!");
+  } catch (e) {
+    showCustomSnackBar(e.toString());
+  }
+}
+
 Future verifyOtp(otp, isforgot) async {
   var userid = await getuserid();
   print(userid);
@@ -164,7 +189,7 @@ Future sendOtpforgotpassword(email) async {
   }
 }
 
-Future forgotPassword(password, cpassword) async {
+Future forgotPassword(password, cpassword, {isChangepass = false}) async {
   var userid = await getuserid();
   try {
     final response =
@@ -183,7 +208,11 @@ Future forgotPassword(password, cpassword) async {
       var responsedata = jsonDecode(response.body);
       print(responsedata);
       showCustomSnackBar(responsedata['msg'], isError: false);
-      Get.offAll(SignInPage());
+      if (isChangepass) {
+        Get.back();
+      } else {
+        Get.offAll(SignInPage());
+      }
     } else {
       var responsedata = jsonDecode(response.body);
       showCustomSnackBar(responsedata["msg"]);

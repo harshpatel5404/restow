@@ -40,7 +40,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    EasyLoading.show();
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.only(
