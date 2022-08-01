@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:restow/Constants/colors.dart';
-import 'package:restow/Screens/Home/home_screen.dart';
+import 'package:restow/Screens/HomePage/home_screen.dart';
 import 'package:restow/Screens/SignUp/sign_up_screen.dart';
 import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/buttons.dart';

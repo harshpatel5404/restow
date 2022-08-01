@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:restow/Screens/Home/home_screen.dart';
+import 'package:restow/Screens/HomePage/home_screen.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
 import 'package:restow/Screens/VerifyOtp/verify_otp.dart';
 import 'package:restow/Widgets/snackbar.dart';
