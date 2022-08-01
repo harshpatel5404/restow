@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -143,7 +144,12 @@ class _VerifyOtpState extends State<VerifyOtp> {
                     showCustomSnackBar("Fill the OTP fields");
                   } else {
                     int otptext = int.parse(otp);
-                    verifyOtp(otp, widget.isForgot);
+
+                    EasyLoading.show();
+                    verifyOtp(otp, widget.isForgot).whenComplete(() {
+                      EasyLoading.removeAllCallbacks();
+                      EasyLoading.dismiss();
+                    });
                   }
                 },
               ),

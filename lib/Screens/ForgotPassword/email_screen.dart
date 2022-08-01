@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Constants/dimension.dart';
@@ -85,8 +86,13 @@ class _EmailScreenState extends State<EmailScreen> {
               btntext: "Submit",
               onpress: () {
                 if (formkey.currentState!.validate()) {
-                  print("valid"); 
-                  sendOtpforgotpassword(emailController.text.trim());
+                  print("valid");
+                  EasyLoading.show();
+                  sendOtpforgotpassword(emailController.text.trim())
+                      .whenComplete(() {
+                    EasyLoading.removeAllCallbacks();
+                    EasyLoading.dismiss();
+                  });
                 }
               },
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/colors.dart';
 import 'package:restow/Constants/dimension.dart';
@@ -132,9 +133,13 @@ class _SignInPageState extends State<SignInPage> {
               onpress: () {
                 if (formkey.currentState!.validate()) {
                   print("valid");
-
+                  EasyLoading.show();
                   login(emailController.text.trim(),
-                      passwordController.text.trim());
+                          passwordController.text.trim())
+                      .whenComplete(() {
+                    EasyLoading.removeAllCallbacks();
+                    EasyLoading.dismiss();
+                  });
                 }
               },
             ),

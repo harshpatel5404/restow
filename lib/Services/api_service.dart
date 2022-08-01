@@ -6,13 +6,14 @@ import 'package:http/http.dart' as http;
 import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:restow/Screens/HomePage/home_screen.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
+import 'package:restow/Screens/SignUp/sign_up_controller.dart';
 import 'package:restow/Screens/VerifyOtp/verify_otp.dart';
 import 'package:restow/Widgets/snackbar.dart';
 
 import 'shared_preference_service.dart';
 
 var baseUrl = "https://nodeserver.mydevfactory.com:7099";
-
+SignUpController signUpController = Get.put(SignUpController());
 Future signup(name, email, phone, password) async {
   try {
     final response = await http.post(Uri.parse('$baseUrl/user/signup'),
@@ -32,6 +33,7 @@ Future signup(name, email, phone, password) async {
         encoding: Encoding.getByName('utf-8'));
 
     if (response.statusCode == 200) {
+      signUpController.isLoading.value = false;
       var responsedata = jsonDecode(response.body);
       print(responsedata);
       if (responsedata["msg"] == "Email Already Exist") {
@@ -196,6 +198,3 @@ Future forgotPassword(password, cpassword) async {
     showCustomSnackBar(e.toString());
   }
 }
-
-
-

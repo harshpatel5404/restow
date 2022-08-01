@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -192,8 +193,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 btntext: "Submit",
                 onpress: () {
                   if (formkey.currentState!.validate()) {
+                    EasyLoading.show();
                     forgotPassword(newpasswordController.text,
-                        confirmnewpasswordController.text);
+                            confirmnewpasswordController.text)
+                        .whenComplete(() {
+                      EasyLoading.removeAllCallbacks();
+                      EasyLoading.dismiss();
+                    });
                   }
                 },
               ),
