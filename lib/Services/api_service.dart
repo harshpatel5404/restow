@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:restow/Screens/HomePage/home_screen.dart';
+import 'package:restow/Screens/Profile/profile_controller.dart';
 import 'package:restow/Screens/SignIn/sign_in_screen.dart';
 import 'package:restow/Screens/SignUp/sign_up_controller.dart';
 import 'package:restow/Screens/VerifyOtp/verify_otp.dart';
@@ -84,8 +85,8 @@ Future resendOtpCode() async {
 
 Future verifyOtp(otp, isforgot) async {
   var userid = await getuserid();
-  print(userid);
-  print(otp);
+  // print(userid);
+  // print(otp);
   try {
     final response =
         await http.post(Uri.parse("$baseUrl/user/verifyOtp/$userid/$otp"),
@@ -217,6 +218,44 @@ Future forgotPassword(password, cpassword, {isChangepass = false}) async {
       var responsedata = jsonDecode(response.body);
       showCustomSnackBar(responsedata["msg"]);
       print(responsedata);
+    }
+  } on SocketException {
+    showCustomSnackBar("No Internet connection");
+  } on TimeoutException {
+    showCustomSnackBar("Connection Time Out!");
+  } catch (e) {
+    print(e.toString());
+    showCustomSnackBar(e.toString());
+  }
+}
+
+Future getProfileDetails() async {
+  ProfileController profilecontroller = Get.put(ProfileController());
+  try {
+    final response = await http.get(
+      Uri.parse('https://nodeserver.mydevfactory.com:7099/user/driverProfile'),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-access-token":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTI2ZGJkMjVlZDkyM2ZlODYwZDYwNSIsImlhdCI6MTY1OTM0MjcxNCwiZXhwIjoxNjY5NzEwNzE0fQ.ra26oNDhjhht_OG6gSkJVCPDnOb98zO8D9Cut_12HJ4"
+      },
+    );
+    if (response.statusCode == 200) {
+      var responsedata = jsonDecode(response.body);
+      print(responsedata);
+      var data = responsedata['data'];
+
+      profilecontroller.name.value = data['fullName'];
+      profilecontroller.email.value = data['email'];
+      profilecontroller.contact.value = data['phone'];
+      profilecontroller.address.value = data['address'];
+      profilecontroller.postcode.value = data['postcode'].toString();
+      profilecontroller.brand.value = data['towVehicleBrand'];
+      profilecontroller.vehicleNo.value = data['towVehicleNumber'];
+      profilecontroller.vehicleType.value = data['towVehicleType'];
+      profilecontroller.image.value = data['photo'];
+    } else {
+      var responsedata = jsonDecode(response.body);
     }
   } on SocketException {
     showCustomSnackBar("No Internet connection");

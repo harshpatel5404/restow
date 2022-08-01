@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:restow/Screens/Accept/accept_screen.dart';
+import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/icon.dart';
 
 import '../../Widgets/drawer_menu.dart';
@@ -19,8 +20,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+  bool isSwitched = true;
 
-  bool isSwitched = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getProfileDetails();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

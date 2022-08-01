@@ -3,12 +3,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/dimension.dart';
-import 'package:restow/Screens/ForgotPassword/email_screen.dart';
-import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
-import 'package:restow/Screens/Home/home_screen.dart';
-import 'package:restow/Screens/SignUp/sign_up_screen.dart';
-import 'package:restow/Screens/VerifyOtp/verify_otp.dart';
+
 import 'Constants/colors.dart';
+import 'Screens/Home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
