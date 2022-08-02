@@ -8,8 +8,6 @@ import 'package:restow/Constants/colors.dart';
 import 'package:restow/Constants/dimension.dart';
 import 'package:restow/Screens/Profile/edit_profile.dart';
 import 'package:restow/Screens/Profile/profile_controller.dart';
-import 'package:restow/Screens/SignUp/sign_up_screen.dart';
-import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/buttons.dart';
 import 'package:restow/Widgets/icon.dart';
 
@@ -126,14 +124,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
                               border:
-                                  Border.all(color: kPrimaryColor, width: 2)),
-                          child: CircleAvatar(
-                              radius: Get.width * 0.15,
-                              backgroundImage: profileController.image.value !=
-                                      ""
-                                  ? NetworkImage(profileController.image.value)
-                                  : const NetworkImage(
-                                      "profileController.image.value")),
+                                  Border.all(color: kPrimaryColor, width: 3)),
+                          child: profileController.image.value != ""
+                              ? CircleAvatar(
+                                  radius: Get.width * 0.15,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: NetworkImage(
+                                      profileController.image.value))
+                              : CircleAvatar(
+                                  radius: Get.width * 0.15,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: const AssetImage(
+                                    "assets/images/profile.png",
+                                  ),
+                                ),
                         ),
                       ),
                       Positioned(
@@ -399,13 +403,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       horizontal: Get.width * 0.08, vertical: Get.width * 0.04),
                   child: MyButton(
                       onpress: () {
-                        // Get.to(EditProfile(
-                        //   name: "Johnson Do",
-                        //   phone: "033 2264 1318",
-                        //   address: "Palmar del Sol, 83250 Hermosillo, S...",
-                        //   postcode: "35152",
-                        //   vehicleno: "SD3231",
-                        // ));
+                        Get.to(EditProfile(
+                          name: "Johnson Do",
+                          phone: "033 2264 1318",
+                          address: "Palmar del Sol, 83250 Hermosillo, S...",
+                          postcode: "35152",
+                          vehicleno: "SD3231",
+                        ));
                       },
                       btntext: "Edit Profile"),
                 ),

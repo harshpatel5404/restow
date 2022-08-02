@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:restow/Screens/ForgotPassword/forgotpassword.dart';
@@ -233,7 +234,7 @@ Future getProfileDetails() async {
   ProfileController profilecontroller = Get.put(ProfileController());
   try {
     final response = await http.get(
-      Uri.parse('https://nodeserver.mydevfactory.com:7099/user/driverProfile'),
+      Uri.parse('$baseUrl/user/driverProfile'),
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "x-access-token":
@@ -244,7 +245,6 @@ Future getProfileDetails() async {
       var responsedata = jsonDecode(response.body);
       print(responsedata);
       var data = responsedata['data'];
-
       profilecontroller.name.value = data['fullName'];
       profilecontroller.email.value = data['email'];
       profilecontroller.contact.value = data['phone'];
@@ -253,7 +253,8 @@ Future getProfileDetails() async {
       profilecontroller.brand.value = data['towVehicleBrand'];
       profilecontroller.vehicleNo.value = data['towVehicleNumber'];
       profilecontroller.vehicleType.value = data['towVehicleType'];
-      profilecontroller.image.value = data['photo'];
+      // profilecontroller.image.value = data['photo'];
+      // print(data['photo']);
     } else {
       var responsedata = jsonDecode(response.body);
     }
@@ -265,4 +266,100 @@ Future getProfileDetails() async {
     print(e.toString());
     showCustomSnackBar(e.toString());
   }
+}
+
+Future updateProfile(fullName, email, phone, address, postcode, towVehicleBrand,
+    towVehicleNumber, towVehicleType, File? photo) async {
+  // var token = await getToken();
+
+  // List<int> imageBytes = photo.readAsBytesSync();
+  // String base64Image = base64Encode(imageBytes);
+  // print(base64Image);
+
+//   final bytes = Io.File(imageBytes.path).readAsBytesSync();
+// String img64 = base64Encode(bytes);
+  final data = {
+    'fullName': fullName,
+    'phone': phone,
+    'address': address,
+    'postcode': postcode,
+    'towVehicleBrand': towVehicleBrand,
+    'towVehicleNumber': towVehicleNumber,
+    'towVehicleType': towVehicleType,
+    // "photo": await http.MultipartFile.fromPath(
+    //   "photo",
+    //   photo!.path,
+    //   // contentType: MediaType
+    //   //  contentType:  MediaType('image', 'png')
+    // ),
+    // await dio.MultipartFile.fromFile(photo.path, filename: "myphoto.jpg")
+  };
+  dio.FormData formData = dio.FormData.fromMap(data);
+  try {
+    dio.Dio dio1 = dio.Dio();
+    dio.Response response = await dio1.put(
+      "$baseUrl/user/updateProfile",
+      data: formData,
+      options: dio.Options(
+        headers: {
+          "Accept": "application/json",
+          // "Content-Type": "multipart/form-data",
+          "x-access-token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTI2ZGJkMjVlZDkyM2ZlODYwZDYwNSIsImlhdCI6MTY1OTM0MjcxNCwiZXhwIjoxNjY5NzEwNzE0fQ.ra26oNDhjhht_OG6gSkJVCPDnOb98zO8D9Cut_12HJ4"
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      print("200");
+      print(response.data);
+    } else {
+      print(response.data.toString());
+    }
+  } catch (e) {
+    print("ERROR");
+    print(e.toString());
+  }
+  // try {
+  //   final response = await http.put(Uri.parse('$baseUrl/user/updateProfile'),
+  //       headers: {
+  //          'Content-Type': 'multipart/form-data',
+  // "x-access-token":
+  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTI2ZGJkMjVlZDkyM2ZlODYwZDYwNSIsImlhdCI6MTY1OTM0MjcxNCwiZXhwIjoxNjY5NzEwNzE0fQ.ra26oNDhjhht_OG6gSkJVCPDnOb98zO8D9Cut_12HJ4"
+  //       },
+  //       body: json.encode({
+  //         "fullName": "fullName",
+  //         "email": "email",
+  //         "phone": "phone",
+  //         "address": "address",
+  //         "postcode": "postcode",
+  //         "towVehicleBrand": "towVehicleBrand",
+  //         "towVehicleNumber": "towVehicleNumber",
+  //         "towVehicleType": "towVehicleType",
+  //         // 'fullName': fullName,
+  //         // 'email': email,
+  //         // 'phone': phone,
+  //         // 'address': address,
+  //         // 'postcode': postcode,
+  //         // 'towVehicleBrand': towVehicleBrand,
+  //         // 'towVehicleNumber': towVehicleNumber,
+  //         // 'towVehicleType': towVehicleType,
+  //       }),
+  //       encoding: Encoding.getByName('utf-8'));
+
+  // if (response.statusCode == 200) {
+  //   var responsedata = jsonDecode(response.body);
+  //   print(responsedata);
+  // } else {
+  //   var responsedata = jsonDecode(response.body);
+  //   print(responsedata);
+  //   showCustomSnackBar(responsedata['msg']);
+  // }
+  // } on SocketException {
+  //   showCustomSnackBar("No Internet connection");
+  // } on TimeoutException {
+  //   showCustomSnackBar("Connection Time Out!");
+  // } catch (e) {
+  //   print(e.toString());
+  //   showCustomSnackBar(e.toString());
+  // }
 }
