@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -405,33 +406,55 @@ class _EditProfileState extends State<EditProfile> {
                           SizedBox(height: Get.height * 0.03),
                           MyButton(
                               onpress: () {
-                                var name = nameController.text;
-                                var phone = phoneController.text;
-                                var email = emailController.text;
-                                var address = addressController.text;
-                                var postcode = postcodeController.text;
-                                var brand = brandController.text;
-                                var vnumber = vnumberController.text;
+                                // var name = nameController.text;
+                                // var phone = phoneController.text;
+                                // var email = emailController.text;
+                                // var address = addressController.text;
+                                // var postcode = postcodeController.text;
+                                // var brand = brandController.text;
+                                // var vnumber = vnumberController.text;
+                                Map data;
+
+                                if (image != null) {
+                                  print(image!.path.split(".").last);
+                                  var mimeType = image!.path.split(".").last;
+                                  List<int> imageBytes =
+                                      image!.readAsBytesSync();
+                                  String base64Image = base64Encode(imageBytes);
+                                  var img =
+                                      "data:image/$mimeType;base64,$base64Image";
+
+                                  print(img);
+                                  data = {
+                                    'fullName': nameController.text,
+                                    'phone': phoneController.text,
+                                    'address': addressController.text,
+                                    'postcode': postcodeController.text,
+                                    'towVehicleBrand': brandController.text,
+                                    'towVehicleNumber': vnumberController.text,
+                                    'towVehicleType': selectedType,
+                                    'photo': img
+                                  };
+                                } else {
+                                  data = {
+                                    'fullName': nameController.text,
+                                    'phone': phoneController.text,
+                                    'address': addressController.text,
+                                    'postcode': postcodeController.text,
+                                    'towVehicleBrand': brandController.text,
+                                    'towVehicleNumber': vnumberController.text,
+                                    'towVehicleType': selectedType,
+                                  };
+                                }
 
                                 EasyLoading.show();
-                                updateProfile(
-                                        name,
-                                        email,
-                                        phone,
-                                        address,
-                                        postcode,
-                                        brand,
-                                        vnumber,
-                                        selectedType,
-                                        image)
-                                    .whenComplete(() {
+                                updateProfile(data).whenComplete(() {
                                   getProfileDetails().whenComplete(() {
                                     EasyLoading.removeAllCallbacks();
                                     EasyLoading.dismiss();
                                     Get.back();
                                   });
                                 });
-                                // getProfileDetails();
                               },
                               btntext: "Submit"),
                           SizedBox(height: Get.height * 0.02),

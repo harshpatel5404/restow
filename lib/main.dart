@@ -3,15 +3,20 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:restow/Constants/dimension.dart';
+import 'package:restow/Screens/SignUp/sign_up_screen.dart';
 
 import 'Constants/colors.dart';
 import 'Screens/Home/home_screen.dart';
+import 'Services/shared_preference_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.delayed(const Duration(seconds: 3))
       .then((value) => FlutterNativeSplash.remove());
-  runApp(const MyApp());
+  runApp(MyApp(
+      defaultpage: (await getlogin() == true)
+          ? const HomeScreen()
+          : const SignUpPage()));
   configLoading();
 }
 
@@ -32,7 +37,8 @@ void configLoading() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final Widget defaultpage;
+  const MyApp({Key? key, required this.defaultpage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: background,
         fontFamily: 'Roboto',
       ),
-      home: const HomeScreen(),
+      home: defaultpage,
       builder: EasyLoading.init(),
     );
   }

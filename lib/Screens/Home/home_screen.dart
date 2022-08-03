@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,12 +23,17 @@ class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
   bool isSwitched = true;
 
-
   @override
   void initState() {
     super.initState();
-    getProfileDetails();
+    EasyLoading.show();
+    getProfileDetails().whenComplete(() {
+      EasyLoading.removeAllCallbacks();
+      EasyLoading.dismiss();
+      Get.back();
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
           GoogleMap(
             initialCameraPosition: CameraPosition(
               target: LatLng(62.750411, 26.140096),
-              
               zoom: 4,
             ),
           ),

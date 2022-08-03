@@ -140,6 +140,7 @@ Future login(email, password) async {
       var phone = responsedata["data"]["user"]["phone"];
       var userid = responsedata["data"]["user"]["_id"];
       await setuserid(userid);
+      await setlogin(true);
       await setToken(responsedata['data']['token']);
       await setUserinfo(email: email, name: name, phone: phone);
       showCustomSnackBar("Login Successfully", isError: false);
@@ -231,14 +232,17 @@ Future forgotPassword(password, cpassword, {isChangepass = false}) async {
 }
 
 Future getProfileDetails() async {
+  var token = await getToken();
+  print(token);
+  print("getprofile");
   ProfileController profilecontroller = Get.put(ProfileController());
   try {
     final response = await http.get(
       Uri.parse('$baseUrl/user/driverProfile'),
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "x-access-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTI2ZGJkMjVlZDkyM2ZlODYwZDYwNSIsImlhdCI6MTY1OTM0MjcxNCwiZXhwIjoxNjY5NzEwNzE0fQ.ra26oNDhjhht_OG6gSkJVCPDnOb98zO8D9Cut_12HJ4"
+        "x-access-token": token.toString()
+        // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTI2ZGJkMjVlZDkyM2ZlODYwZDYwNSIsImlhdCI6MTY1OTM0MjcxNCwiZXhwIjoxNjY5NzEwNzE0fQ.ra26oNDhjhht_OG6gSkJVCPDnOb98zO8D9Cut_12HJ4"
       },
     );
     if (response.statusCode == 200) {
@@ -251,7 +255,7 @@ Future getProfileDetails() async {
       profilecontroller.address.value = data['address'];
       profilecontroller.postcode.value = data['postcode'].toString();
       profilecontroller.brand.value = data['towVehicleBrand'];
-      profilecontroller.vehicleNo.value = data['towVehicleNumber'];
+      profilecontroller.vehicleNo.value = data['towVehicleNumber'].toString();
       profilecontroller.vehicleType.value = data['towVehicleType'];
       profilecontroller.image.value = data['photo'];
     } else {
@@ -262,23 +266,21 @@ Future getProfileDetails() async {
   } on TimeoutException {
     showCustomSnackBar("Connection Time Out!");
   } catch (e) {
-    print(e.toString());
-    showCustomSnackBar(e.toString());
+    print(e);
+    // showCustomSnackBar(e.toString());
   }
 }
 
-Future updateProfile(fullName, email, phone, address, postcode, towVehicleBrand,
-    towVehicleNumber, towVehicleType, photo) async {
+Future updateProfile(data) async {
   // ProfileController profileController = Get.put(ProfileController());
   var token = await getToken();
-  // late String base64Image;
   var img;
-  if (photo != null) {
-    List<int> imageBytes = photo.readAsBytesSync();
-    String base64Image = base64Encode(imageBytes);
-    var img = "data:image/jpg;base64,$base64Image";
-    print(base64Image);
-  }
+  // if (photo != null) {
+    // List<int> imageBytes = photo.readAsBytesSync();
+    // String base64Image = base64Encode(imageBytes);
+    // var img = "data:image/jpg;base64,$base64Image";
+    // print(base64Image);
+  // }
 
 //   final bytes = Io.File(imageBytes.path).readAsBytesSync();
 // String img64 = base64Encode(bytes);
@@ -287,29 +289,10 @@ Future updateProfile(fullName, email, phone, address, postcode, towVehicleBrand,
     final response = await http.put(Uri.parse('$baseUrl/user/driverProfile'),
         headers: {
           "Content-Type": "application/json; charset=utf-8",
-          "x-access-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTI2ZGJkMjVlZDkyM2ZlODYwZDYwNSIsImlhdCI6MTY1OTM0MjcxNCwiZXhwIjoxNjY5NzEwNzE0fQ.ra26oNDhjhht_OG6gSkJVCPDnOb98zO8D9Cut_12HJ4"
+          "x-access-token": token!
+          // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTI2ZGJkMjVlZDkyM2ZlODYwZDYwNSIsImlhdCI6MTY1OTM0MjcxNCwiZXhwIjoxNjY5NzEwNzE0fQ.ra26oNDhjhht_OG6gSkJVCPDnOb98zO8D9Cut_12HJ4"
         },
-        body: photo != null
-            ? json.encode({
-                'fullName': fullName,
-                'phone': phone,
-                'address': address,
-                'postcode': postcode,
-                'towVehicleBrand': towVehicleBrand,
-                'towVehicleNumber': towVehicleNumber,
-                'towVehicleType': towVehicleType,
-                'photo': img
-              })
-            : json.encode({
-                'fullName': fullName,
-                'phone': phone,
-                'address': address,
-                'postcode': postcode,
-                'towVehicleBrand': towVehicleBrand,
-                'towVehicleNumber': towVehicleNumber,
-                'towVehicleType': towVehicleType,
-              }),
+        body:  json.encode(data),
         encoding: Encoding.getByName('utf-8'));
 
     if (response.statusCode == 200) {
