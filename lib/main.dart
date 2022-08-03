@@ -20,14 +20,14 @@ void configLoading() {
     ..displayDuration = const Duration(milliseconds: 2000)
     ..indicatorType = EasyLoadingIndicatorType.fadingCircle
     ..loadingStyle = EasyLoadingStyle.dark
-    ..indicatorSize = 70.0
-    ..contentPadding = EdgeInsets.all(mWidth * 0.07)
-    ..radius = 15.0
-    ..progressColor = Colors.white
-    ..backgroundColor = const Color.fromARGB(255, 82, 82, 82).withOpacity(0.7)
-    ..indicatorColor = Colors.white
-    ..textColor = Colors.white
-    ..maskColor = const Color.fromARGB(96, 71, 71, 71).withOpacity(0.5)
+    ..indicatorSize = 55.0
+    ..contentPadding = EdgeInsets.all(mWidth*0.07)
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
     ..userInteractions = false;
 }
 
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: background,
         fontFamily: 'Roboto',
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
       builder: EasyLoading.init(),
     );
   }

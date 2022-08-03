@@ -412,6 +412,7 @@ class _EditProfileState extends State<EditProfile> {
                                 var postcode = postcodeController.text;
                                 var brand = brandController.text;
                                 var vnumber = vnumberController.text;
+
                                 EasyLoading.show();
                                 updateProfile(
                                         name,
@@ -422,7 +423,7 @@ class _EditProfileState extends State<EditProfile> {
                                         brand,
                                         vnumber,
                                         selectedType,
-                                        image)
+                                        image!)
                                     .whenComplete(() {
                                   getProfileDetails().whenComplete(() {
                                     EasyLoading.removeAllCallbacks();
