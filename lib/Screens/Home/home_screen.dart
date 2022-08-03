@@ -27,6 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    EasyLoading.show();
+    getProfileDetails().whenComplete(() {
+      EasyLoading.removeAllCallbacks();
+      EasyLoading.dismiss();
+      Get.back();
+    });
   }
 
   @override
