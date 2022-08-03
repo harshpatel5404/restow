@@ -423,7 +423,7 @@ class _EditProfileState extends State<EditProfile> {
                                         brand,
                                         vnumber,
                                         selectedType,
-                                        image!)
+                                        image)
                                     .whenComplete(() {
                                   getProfileDetails().whenComplete(() {
                                     EasyLoading.removeAllCallbacks();
