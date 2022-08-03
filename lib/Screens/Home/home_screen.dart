@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:restow/Screens/Accept/accept_screen.dart';
+import 'package:restow/Screens/Home/home_controller.dart';
 import 'package:restow/Services/api_service.dart';
 import 'package:restow/Widgets/icon.dart';
 
@@ -22,16 +23,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
   bool isSwitched = true;
-
+  HomeController homeController = Get.put(HomeController());
   @override
   void initState() {
     super.initState();
-    EasyLoading.show();
-    getProfileDetails().whenComplete(() {
-      EasyLoading.removeAllCallbacks();
-      EasyLoading.dismiss();
-      Get.back();
-    });
   }
 
   @override

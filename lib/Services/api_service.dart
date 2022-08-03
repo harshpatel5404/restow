@@ -121,6 +121,7 @@ Future verifyOtp(otp, isforgot) async {
 }
 
 Future login(email, password) async {
+  ProfileController profilecontroller = Get.put(ProfileController());
   try {
     final response = await http.post(Uri.parse('$baseUrl/user/login'),
         headers: {
@@ -138,7 +139,13 @@ Future login(email, password) async {
       print(responsedata);
       var name = responsedata["data"]["user"]["fullName"];
       var phone = responsedata["data"]["user"]["phone"];
+      var email = responsedata["data"]["user"]["email"];
       var userid = responsedata["data"]["user"]["_id"];
+
+      profilecontroller.name.value = name;
+      profilecontroller.email.value = email;
+      profilecontroller.contact.value = phone;
+
       await setuserid(userid);
       await setlogin(true);
       await setToken(responsedata['data']['token']);
@@ -276,10 +283,10 @@ Future updateProfile(data) async {
   var token = await getToken();
   var img;
   // if (photo != null) {
-    // List<int> imageBytes = photo.readAsBytesSync();
-    // String base64Image = base64Encode(imageBytes);
-    // var img = "data:image/jpg;base64,$base64Image";
-    // print(base64Image);
+  // List<int> imageBytes = photo.readAsBytesSync();
+  // String base64Image = base64Encode(imageBytes);
+  // var img = "data:image/jpg;base64,$base64Image";
+  // print(base64Image);
   // }
 
 //   final bytes = Io.File(imageBytes.path).readAsBytesSync();
@@ -292,7 +299,7 @@ Future updateProfile(data) async {
           "x-access-token": token!
           // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTI2ZGJkMjVlZDkyM2ZlODYwZDYwNSIsImlhdCI6MTY1OTM0MjcxNCwiZXhwIjoxNjY5NzEwNzE0fQ.ra26oNDhjhht_OG6gSkJVCPDnOb98zO8D9Cut_12HJ4"
         },
-        body:  json.encode(data),
+        body: json.encode(data),
         encoding: Encoding.getByName('utf-8'));
 
     if (response.statusCode == 200) {
